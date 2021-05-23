@@ -1,0 +1,6 @@
+{    
+    "aws_access_key": "AXXXXXXXXXXXXXXXXXXXXXXQ",
+	"aws_secret_key": "Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxh",
+	"vpc_id": "vpc-xxxxxxxxxxxxxx",
+    "subnet_id": "subnet-xxxxxxxxxxxxxxxxxxxx"
+}

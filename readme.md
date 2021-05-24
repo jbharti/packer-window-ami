@@ -16,5 +16,7 @@ Set variables
 2. set var.json values
 
 How to run?
-time packer build -var-file=var.json base_window_database_ami.json"         
+
+
+time packer build -var-file=var.json base_window_database_ami.json"Â  Â  Â  Â  Â 
 

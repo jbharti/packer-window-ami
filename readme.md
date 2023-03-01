@@ -1,22 +1,73 @@
-What does this project do?
-Ans- It uses to create window ami according to your requirement. from Custom AWS windows Ami.
-How Packers create ami?
-Ans-
-1. it creates the machine from base ami.
-2. It installs your required package on base machine created in the above steps
-3. It creates ami from the above machine
-4. terminate the machine.
+# **Creating AWS window Ami using packer**
 
-Install packer
-https://www.packer.io/docs/install
+#### **Introduction**
 
-Set variables
+-   Packer is part of the HashiCorp open-source suite of tools
+-   It's an open-source command-line tool that allows us to create custom VM images of any OS.
 
-1. set "source_ami": "#PUT AWS BASE WINDOW AMI#", in base_window_ami.json
-2. set var.json values
+##### **The structure of the Packer template**
 
-How to run?
+```plaintext
+{
+	"variables": {
+		// list of variables defined, like-
+		"instance_size": "t2.medium",
+		...
+	},
+	"builders": [	
+		{
+		//builders properties is like-
+			"ami_name": "WIN2019-BASE-{{timestamp}}",
+			...
+		}
+	],
+	"provisioners": [
+		{
+			// list of scripts to execute for image provisionning
+			{
+    		  "type": "powershell",		 
+    		  "scripts": ["./scripts/basic_softwares.ps1"] 
+	    	}
+		}
+	]
+}
+```
 
+##### **Pre-Requisite**
 
-time packer build -var-file=var.json base_window_database_ami.json"         
+-   Should have knowledge of how to write packer script using JSON
+-   Should have knowledge of how to write provisioners script using PowerShell
+-   Should have knowledge of how to write Jenkins pipeline
 
+### **Installation**
+
+##### **Checkout Repository**
+
+-   Check out the project code from git.
+
+```plaintext
+$git clone http://gitserver.digite.in/devops-MS/packer.git
+```
+
+##### **How to write a packer script?**
+
+-   Write your own scripts with the help of a sample script provided in the repository.
+-   The provisioner scripts must be kept inside the script folder.
+-   Variable must go inside var.json
+-   Commit your code in a git repo.
+
+##### **How to Uses**
+
+-   Create a Jenkins pipeline (Ex. CreateAMI) using Jenkinsfile given in the Jenkins folder.
+-   In the above pipeline, create two Parameter SCRIPT & VARIABLE
+-   In SCRIPT pass your script name Ex. base\_window\_ami
+-   In VARIABLE pass your variable file name Ex. var
+-   Then trigger the build.
+
+##### **How it Works**
+
+-   When the build trigger, it creates the container using image ami-using-packer:0.1
+-   This container work as the node for the Jenkins pipeline
+-   Inside the container, packer v1.7.0 is installed.
+-   It runs the script with the given variable file.
+-   on the successful run, an image will be created

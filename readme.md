@@ -46,7 +46,7 @@
 -   Check out the project code from git.
 
 ```plaintext
-$git clone http://gitserver.digite.in/devops-MS/packer.git
+$git clone https://github.com/jbharti/packer-window-ami.git
 ```
 
 ##### **How to write a packer script?**
